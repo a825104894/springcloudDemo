@@ -1,0 +1,34 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: steam-provider
+  cloud:
+    stream:
+      binders:
+        defaultRabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+               host: localhost
+               port: 5672
+               username: guest
+               password: guest
+      bindings:
+        output:
+          destination: studyExchange
+          content-type: application/json
+          binder: defaultRabbit
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
+  instance:
+    lease-expiration-duration-in-seconds: 2
+    lease-renewal-interval-in-seconds: 5
+    instance-id: send-8081.com
+    prefer-ip-address: true
+
+
+    
